@@ -1,0 +1,27 @@
+default_install_hook_types: [pre-commit, commit-msg]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace       # удаляет пробелы в конце строк
+      - id: end-of-file-fixer         # файл должен заканчиваться переводом строки
+      - id: check-yaml                # валидирует YAML-файлы
+      - id: check-toml                # валидирует TOML-файлы
+      - id: check-added-large-files   # блокирует случайный коммит больших файлов
+        args: ["--maxkb=500"]
+      - id: check-merge-conflict      # проверяет незакрытые merge-конфликты
+      - id: debug-statements          # ищет забытые breakpoint() / pdb
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.7
+    hooks:
+      - id: ruff                      # линтинг (+ автофикс)
+        args: ["--fix"]
+      - id: ruff-format               # форматирование (аналог black)
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.19.1
+    hooks:
+      - id: mypy
+        additional_dependencies: []   # добавьте сюда стабы если нужно: ["types-requests"]

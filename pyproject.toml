@@ -1,0 +1,82 @@
+[project]
+name = "test-shop"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = "==3.12.10"
+dependencies = [
+    "alembic>=1.18.4",
+    "asyncpg>=0.31.0",
+    "fastapi==0.111.1",
+    "httpx==0.27.2",
+    "opentelemetry-api>=1.40.0",
+    "opentelemetry-exporter-otlp>=1.40.0",
+    "opentelemetry-instrumentation-fastapi>=0.61b0",
+    "opentelemetry-sdk>=1.40.0",
+    "passlib[bcrypt]>=1.7.4",
+    "pydantic==2.7.1",
+    "pydantic-settings>=2.13.1",
+    "python-jose[cryptography]>=3.5.0",
+    "python-multipart>=0.0.22",
+    "redis>=7.4.0",
+    "setuptools>=82.0.1",
+    "sqlalchemy>=2.0.48",
+    "structlog>=25.5.0",
+    "taskiq>=0.12.1",
+    "taskiq-aio-pika>=0.6.0",
+    "taskiq-redis>=1.2.2",
+    "uvicorn[standard]==0.23.2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24",
+    "pytest-cov>=6.0",
+    "httpx>=0.27.2",
+    "mypy>=1.13",
+    "ruff>=0.7.0",
+    "pre-commit>=4.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["shared"]
+
+[tool.uv.workspace]
+members = ["shared"]
+
+[tool.ruff]
+target-version = "py314"
+line-length = 88
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "W",
+    "F",
+    "I",
+    "UP",
+    "B",
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["test_3d_outlet"]
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+
+[tool.pytest.ini_options]
+addopts = "-v"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["src"]        # поменяйте на папку с вашим кодом
+omit = ["tests/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
